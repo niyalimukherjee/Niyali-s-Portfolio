@@ -1,7 +1,7 @@
 import React from "react" 
 import Navbar from "./components/Navbar/Navbar"
 import About from "./components/About/About"
-import Contact from "./components/Contact/Contact"
+
 import Education from "./components/Education/Education"
 import Experience from "./components/Experience/Experience"
 import Footer from "./components/Footer/Footer"
@@ -23,7 +23,7 @@ function App() {
           <Experience/>
           <Work/>
           <Education/>
-          <Contact/>
+          
           <Footer/>
         </div>
      

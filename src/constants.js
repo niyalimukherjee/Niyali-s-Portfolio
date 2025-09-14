@@ -46,14 +46,7 @@ import iemLogo from './assets/education_logo/iem_logo.png';
 
 // Project Section Logo's
 
-import csprepLogo from './assets/work_logo/cs_prep.png';
-import movierecLogo from './assets/work_logo/movie_rec.png';
-import taskremLogo from './assets/work_logo/task_rem.png';
-import npmLogo from './assets/work_logo/npm.png';
-import webverLogo from './assets/work_logo/web_dig.png';
-import cmLogo from './assets/work_logo/cm.png';
-import imagesearchLogo from './assets/work_logo/image_search.png';
-import removebgLogo from './assets/work_logo/remove_bg.png';
+import Tomato from './assets/work_logo/Tomato.png'
 import pingping from './assets/work_logo/ping_ping.png';
 import eduford from './assets/work_logo/eduford.png';
 export const SkillsInfo = [
@@ -114,7 +107,7 @@ export const SkillsInfo = [
     {
       id: 0,
       img: accLogo,
-      role: "Fullstack Developer",
+      role: "Associate Software Engineer",
       company: "Accenture",
       date: "July 2023 - Present",
       desc: "Developed dynamic and scalable web applications using the MERN stack, handling both frontend and backend development. Collaborated with cross-functional teams to build responsive UI, implement RESTful APIs, and optimize application performance in an agile environment.",
@@ -211,7 +204,7 @@ export const SkillsInfo = [
       title: "Tamato- A Food Delivery Website",
       description:
         "A food Delivery Web Application implemented using React JS and Tailwind CSS.It is a web application where users can browse menus, see food items, and likely place orders.",
-      image: eduford,
+      image: Tomato,
       tags: [ "React JS","HTML",  "JavaScript", "Tailwind CSS","Redux"],
       github: "https://github.com/niyalimukherjee/Tamato",
       webapp: "https://tamato.netlify.app/",
