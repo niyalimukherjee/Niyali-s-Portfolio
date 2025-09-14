@@ -2,6 +2,12 @@
 
 A sleek, responsive, and fully customizable **animated portfolio website** built using **React.js** and **Tailwind CSS**.
 
+
+## 🚀 Live Demo
+
+🔗 [View Portfolio Live](https://niyali-s-portfolio.vercel.app/)
+
+
 ## 🛠️ Tech Stack
 
 - ⚛️ React.js
@@ -22,7 +28,7 @@ A sleek, responsive, and fully customizable **animated portfolio website** built
 ### 1. Clone the Repo
 
 ```bash
-git clone 
+git clone https://github.com/niyalimukherjee/Niyali-s-Portfolio
 cd your-repo-name
 ````
 
