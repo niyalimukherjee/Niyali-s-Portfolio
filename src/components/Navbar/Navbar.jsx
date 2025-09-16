@@ -12,11 +12,10 @@ const Navbar = () => {
     const handleScroll = () => {
       setIsScrolled(window.scrollY > 50);
 
-      // track which section is in view
       const sections = document.querySelectorAll("section[id]");
       let current = "";
       sections.forEach((section) => {
-        const sectionTop = section.offsetTop - 80; // adjust for navbar height
+        const sectionTop = section.offsetTop - 80;
         const sectionHeight = section.offsetHeight;
         if (
           window.scrollY >= sectionTop &&
@@ -31,6 +30,18 @@ const Navbar = () => {
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
+
+  // disable body scroll when mobile menu open
+  useEffect(() => {
+    if (isOpen) {
+      // save original overflow to restore later
+      const original = document.body.style.overflow;
+      document.body.style.overflow = "hidden";
+      return () => {
+        document.body.style.overflow = original;
+      };
+    }
+  }, [isOpen]);
 
   // Smooth scrolling
   const handleMenuItemClick = (sectionId) => {
@@ -121,42 +132,55 @@ const Navbar = () => {
         </div>
       </div>
 
-      {/* Mobile Menu items */}
+      {/* Overlay to blur background when mobile menu is open */}
       {isOpen && (
-        <div className="absolute top-16 left-1/2 transform -translate-x-1/2 w-4/5 bg-[#050414] bg-opacity-50 backdrop-filter backdrop-blur-lg z-50 rounded-lg shadow-lg">
-          <ul className="flex flex-col items-center space-y-4 py-4 text-gray-300">
-            {menuItems.map((item) => (
-              <li
-                key={item.id}
-                className={`cursor-pointer hover:text-white ${
-                  activeSection === item.id ? "text-[#8245ec]" : ""
-                }`}
-              >
-                <button onClick={() => handleMenuItemClick(item.id)}>
-                  {item.label}
-                </button>
-              </li>
-            ))}
-            <div className="flex space-x-4">
-              <a
-                href="https://github.com/niyalimukherjee"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="text-gray-300 hover:text-[#8245ec]"
-              >
-                <FaGithub size={24} />
-              </a>
-              <a
-                href="https://www.linkedin.com/in/niyali-mukh"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="text-gray-300 hover:text-[#8245ec]"
-              >
-                <FaLinkedin size={24} />
-              </a>
-            </div>
-          </ul>
-        </div>
+        <>
+          {/* Full-screen overlay — sits behind the menu (z-40). Adjust opacity/blur as desired */}
+          <div
+            aria-hidden="true"
+            className="fixed inset-0 z-40 pointer-events-auto"
+            onClick={() => setIsOpen(false)} // close when clicking outside
+          >
+            {/* Use backdrop-blur + semi-transparent bg for darkened blurred background */}
+            <div className="w-full h-full bg-black/40 backdrop-blur-sm" />
+          </div>
+
+          {/* Mobile Menu items — sits above overlay (z-50) */}
+          <div className="fixed top-16 left-1/2 transform -translate-x-1/2 w-4/5 bg-[#050414] bg-opacity-60 backdrop-filter backdrop-blur-lg z-50 rounded-lg shadow-lg">
+            <ul className="flex flex-col items-center space-y-4 py-4 text-gray-300">
+              {menuItems.map((item) => (
+                <li
+                  key={item.id}
+                  className={`cursor-pointer hover:text-white ${
+                    activeSection === item.id ? "text-[#8245ec]" : ""
+                  }`}
+                >
+                  <button onClick={() => handleMenuItemClick(item.id)}>
+                    {item.label}
+                  </button>
+                </li>
+              ))}
+              <div className="flex space-x-4">
+                <a
+                  href="https://github.com/niyalimukherjee"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-gray-300 hover:text-[#8245ec]"
+                >
+                  <FaGithub size={24} />
+                </a>
+                <a
+                  href="https://www.linkedin.com/in/niyali-mukh"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-gray-300 hover:text-[#8245ec]"
+                >
+                  <FaLinkedin size={24} />
+                </a>
+              </div>
+            </ul>
+          </div>
+        </>
       )}
     </nav>
   );

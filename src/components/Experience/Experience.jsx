@@ -30,23 +30,14 @@ const Experience = () => {
               index % 2 === 0 ? "sm:justify-end" : "sm:justify-start"
             }`}
           >
-            {/* Timeline Circle (logo stays static, no hover) */}
-            <div className="absolute sm:left-1/2 left-0 transform -translate-x-1/2 bg-gray-400 border-4 border-[#8245ec] w-12 h-12 sm:w-16 sm:h-16 rounded-full flex justify-center items-center z-10">
-              <img
-                src={experience.img}
-                alt={experience.company}
-                className="w-full h-full object-cover rounded-full"
-              />
-            </div>
-
-            {/* Content Section (card hovers, logo stays still) */}
+            {/* Content Section */}
             <div
               className={`w-full sm:max-w-md p-4 sm:p-8 rounded-2xl shadow-2xl border border-white bg-gray-900 backdrop-blur-md shadow-[0_0_20px_1px_rgba(130,69,236,0.3)] transform transition-transform duration-300 hover:scale-105
                 ${index % 2 === 0 ? "sm:ml-48" : "sm:mr-48"} ml-8`}
             >
               {/* Flex container for image and text */}
               <div className="flex items-center space-x-6">
-                {/* Company Logo/Image inside the card */}
+                {/* Company Logo inside the card */}
                 <div className="w-16 h-16 bg-white rounded-md overflow-hidden">
                   <img
                     src={experience.img}
@@ -65,7 +56,6 @@ const Experience = () => {
                       {experience.company}
                     </h4>
                   </div>
-                  {/* Date at the bottom */}
                   <p className="text-sm text-gray-500 mt-2">{experience.date}</p>
                 </div>
               </div>

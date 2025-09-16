@@ -19,4 +19,22 @@ html {
         clip-path: polygon(0 0, 100% 0, 100% 98%, 75% 96%, 0 100%);
       }
   }
-  
+.logo-responsive {
+  display: flex !important;
+  align-items: center;
+  justify-content: center;
+}
+
+/* hide only on tablet widths (768px - 1023.98px) */
+@media (min-width: 768px) and (max-width: 1023.98px) {
+  .logo-responsive {
+    display: none !important;
+  }
+}
+
+/* show again on desktop (>=1024px) */
+@media (min-width: 1024px) {
+  .logo-responsive {
+    display: flex !important;
+  }
+}
