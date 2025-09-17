@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { TypeAnimation } from "react-type-animation";
 import Tilt from "react-parallax-tilt";
-import profileImage from "../../assets/niyali.jpeg";
+import profileImage from "../../assets/niyali.png";
 
 const About = () => {
   const [loading, setLoading] = useState(false);
