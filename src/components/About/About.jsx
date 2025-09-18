@@ -6,71 +6,45 @@ import profileImage from "../../assets/niyali.png";
 const About = () => {
   const [loading, setLoading] = useState(false);
 
-  // Public file path (served from your site: put the PDF in public/)
-  const publicResume = "/NIYALI_MUKHERJEE_RESUME.pdf";
+ 
+  const publicResume = "/NIYALI_MUKHERJEE_RESUME_.pdf";
+  const filename = "NIYALI_MUKHERJEE_RESUME_.pdf";
 
-  // Google Drive link(s)
   const driveFileId = "18bWiOubEoWFrjATouhDHtPj4hIqIXmZv";
   const driveView = `https://drive.google.com/file/d/${driveFileId}/view?usp=sharing`;
   const driveDirect = `https://drive.google.com/uc?export=download&id=${driveFileId}`;
 
-  const filename = "NIYALI_MUKHERJEE_RESUME.pdf";
+  /**
+   * Behavior:
+   * 1) Open Google Drive view in a new tab immediately (prevents popup blocking).
+   * 2) Trigger same-origin download via hidden iframe to start browser download without navigation.
+   * 3) If iframe fails, fallback to anchor click method.
+   * 4) If new-tab/open was blocked, navigate current tab to Drive view as a last resort.
+   */
+  const handleDownload = (e) => {
+  e.preventDefault();
+  setLoading(true);
 
-  const handleDownload = async (e) => {
-    e.preventDefault();
-    setLoading(true);
+  // 1. Immediately open the Google Drive view in a new tab.
+  // This is a direct user-initiated action, so it's less likely to be blocked.
+  window.open(driveView, "_blank");
 
-    // 1) Check if public file exists using HEAD (lightweight)
-    let publicAvailable = false;
-    try {
-      const head = await fetch(publicResume, { method: "HEAD" });
-      publicAvailable = head.ok;
-    } catch (err) {
-      publicAvailable = false;
-    }
+  // 2. Trigger the download using an anchor tag for reliability.
+  // This method works well and is a standard way to trigger file downloads.
+  const a = document.createElement("a");
+  a.href = publicResume; // Use the direct URL to the PDF file
+  a.download = filename;
+  a.style.display = "none";
+  document.body.appendChild(a);
+  a.click();
+  document.body.removeChild(a); // Clean up the element
 
-    // 2) If public file exists -> trigger same-origin download
-    if (publicAvailable) {
-      try {
-        const a = document.createElement("a");
-        a.href = publicResume;
-        a.download = filename; // ensures filename on same-origin
-        // Make sure the link does not navigate away (open in background)
-        a.style.display = "none";
-        document.body.appendChild(a);
-        a.click();
-        a.remove();
-      } catch (err) {
-        console.warn("Public download attempt failed:", err);
-      }
-      // Small delay to ensure the download is initiated before opening Drive tab
-      // (usually not necessary, but improves reliability)
-      try {
-        setTimeout(() => {
-          // Open Drive view (user can also download from Drive)
-          window.open(driveView, "_blank", "noopener");
-        }, 150);
-      } finally {
-        setLoading(false);
-      }
-      return;
-    }
-
-    // 3) If public file not available -> open Drive (attempt direct download then view)
-    try {
-      // Try direct download URL first (some setups auto-download)
-      window.open(driveDirect, "_blank", "noopener");
-      // Also open Drive view after a short delay to cover cases where direct link shows UI
-      setTimeout(() => {
-        window.open(driveView, "_blank", "noopener");
-      }, 400);
-    } catch (err) {
-      console.error("Opening Drive failed, navigating current tab instead:", err);
-      window.location.href = driveView;
-    } finally {
-      setLoading(false);
-    }
-  };
+  // 3. Reset the loading state after a brief delay.
+  // This gives the browser a moment to process the actions.
+  setTimeout(() => {
+    setLoading(false);
+  }, 1000);
+};
 
   return (
     <section
@@ -114,24 +88,33 @@ const About = () => {
             I am a passionate Full Stack Developer with experience building scalable web and mobile applications. Skilled in React.js, Node.js, and modern frameworks, I specialize in creating responsive user interfaces and efficient backend systems. With a strong eye for design and performance optimization, I enjoy turning ideas into user-friendly products that deliver real impact.
           </p>
 
-          {/* Download CV button */}
-          <button
-            onClick={handleDownload}
-            disabled={loading}
-            className="inline-block text-white py-3 px-8 rounded-full mt-5 text-lg font-bold transition duration-300 transform hover:scale-105 disabled:opacity-60 disabled:cursor-not-allowed"
-            style={{
-              background: "linear-gradient(90deg, #8245ec, #a855f7)",
-              boxShadow: "0 0 2px #8245ec, 0 0 2px #8245ec, 0 0 40px #8245ec",
-            }}
-            aria-label="Download CV"
-            title="Downloads from site if available and also opens Google Drive"
-          >
-            {loading ? "Preparing..." : "DOWNLOAD CV"}
-          </button>
+          {/* Download CV + Drive link */}
+          <div className="flex flex-col sm:flex-row sm:items-center sm:space-x-4">
+            <button
+              onClick={handleDownload}
+              disabled={loading}
+              className="inline-block text-white py-3 px-8 rounded-full mt-5 text-lg font-bold transition duration-300 transform hover:scale-105 disabled:opacity-60 disabled:cursor-not-allowed"
+              style={{
+                background: "linear-gradient(90deg, #8245ec, #a855f7)",
+                boxShadow: "0 0 2px #8245ec, 0 0 2px #8245ec, 0 0 40px #8245ec",
+              }}
+              aria-label="Download CV"
+              title="Downloads from site if available and opens Google Drive"
+            >
+              {loading ? "Preparing..." : "DOWNLOAD CV"}
+            </button>
 
-          <p className="text-sm text-gray-500 mt-2">
-           
-          </p>
+            {/* <a
+              href={driveView}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="mt-3 sm:mt-0 inline-block text-sm text-gray-400 underline"
+            >
+              Open on Google Drive
+            </a> */}
+          </div>
+
+         
         </div>
 
         {/* Right Side */}
