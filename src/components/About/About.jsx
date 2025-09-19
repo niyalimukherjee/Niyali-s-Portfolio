@@ -7,7 +7,7 @@ const About = () => {
   const [loading, setLoading] = useState(false);
 
  
-  const publicResume = "/NIYALI_MUKHERJEE_RESUME_.pdf";
+  const publicResume = "public/NIYALI_MUKHERJEE_RESUME_.pdf";
   const filename = "NIYALI_MUKHERJEE_RESUME_.pdf";
 
   const driveFileId = "18bWiOubEoWFrjATouhDHtPj4hIqIXmZv";
