@@ -31,13 +31,13 @@ const About = () => {
 
   // 2. Trigger the download using an anchor tag for reliability.
   // This method works well and is a standard way to trigger file downloads.
-  const a = document.createElement("a");
-  a.href = publicResume; // Use the direct URL to the PDF file
-  a.download = filename;
-  a.style.display = "none";
-  document.body.appendChild(a);
-  a.click();
-  document.body.removeChild(a); // Clean up the element
+  // const a = document.createElement("a");
+  // a.href = publicResume; // Use the direct URL to the PDF file
+  // a.download = filename;
+  // a.style.display = "none";
+  // document.body.appendChild(a);
+  // a.click();
+  // document.body.removeChild(a); // Clean up the element
 
   // 3. Reset the loading state after a brief delay.
   // This gives the browser a moment to process the actions.
