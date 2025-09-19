@@ -98,10 +98,10 @@ const About = () => {
                 background: "linear-gradient(90deg, #8245ec, #a855f7)",
                 boxShadow: "0 0 2px #8245ec, 0 0 2px #8245ec, 0 0 40px #8245ec",
               }}
-              aria-label="Download CV"
+              aria-label="View Resume"
               title="Downloads from site if available and opens Google Drive"
             >
-              {loading ? "Preparing..." : "DOWNLOAD CV"}
+              {loading ? "Preparing..." : "View Resume"}
             </button>
 
             {/* <a
